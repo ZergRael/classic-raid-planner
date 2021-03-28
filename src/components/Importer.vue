@@ -1,7 +1,7 @@
 <template>
-  <div class="w-full md:w-1/4">
-    <h3>Import</h3>
-    <textarea v-model="input"></textarea>
+  <div>
+    <h2 class="text-xl">Import</h2>
+    <textarea class="w-1/2 border" v-model="input"></textarea>
   </div>
 </template>
 

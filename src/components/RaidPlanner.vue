@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-cols-2 w-full md:w-3/4">
+  <div class="grid grid-cols-2 lg:grid-cols-4">
     <GroupPlanner v-for="i in groupCount" :key="i" :group-number="i" />
   </div>
 </template>

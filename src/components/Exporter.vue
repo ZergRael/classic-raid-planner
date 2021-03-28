@@ -1,7 +1,7 @@
 <template>
-  <div class="w-full md:w-1/4">
-    <h3>Export</h3>
-    <textarea readonly v-model="output"></textarea>
+  <div>
+    <h2 class="text-xl">Export</h2>
+    <textarea class="w-1/2 border" readonly v-model="output"></textarea>
   </div>
 </template>
 

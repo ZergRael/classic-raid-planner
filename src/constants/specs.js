@@ -49,7 +49,7 @@ export default {
       displayName: "Discipline",
       icon: "Spell_Holy_WordFortitude",
     },
-    { name: "holy", displayName: "Holy", icon: "Spell_Holy_AuraOfLight" },
+    { name: "holy", displayName: "Holy", icon: "Spell_Holy_HolyBolt" },
     {
       name: "shadow",
       displayName: "Shadow",

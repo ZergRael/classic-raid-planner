@@ -1,6 +1,6 @@
 <template>
-  <div class="border rounded p-1">
-    G{{ groupNumber }}
+  <div class="border rounded p-1 m-0.5">
+    <h3>G{{ groupNumber }}</h3>
     <draggable
       class="bg-gray-100 justify-items-auto"
       v-model="players"
