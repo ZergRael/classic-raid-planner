@@ -5,6 +5,7 @@
     <div class="w-1/4">
       <Importer />
       <Exporter />
+      <Bench />
       <Warnings />
     </div>
   </div>
@@ -12,6 +13,7 @@
 
 <script>
 import RaidPlanner from "@/components/RaidPlanner.vue";
+import Bench from "@/components/Bench.vue";
 import Importer from "@/components/Importer.vue";
 import Exporter from "@/components/Exporter.vue";
 import Warnings from "@/components/Warnings.vue";
@@ -20,6 +22,7 @@ export default {
   name: "HomePage",
   components: {
     RaidPlanner,
+    Bench,
     Importer,
     Exporter,
     Warnings,

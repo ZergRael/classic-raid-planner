@@ -35,11 +35,6 @@ export default {
     draggable,
     Player,
   },
-  data: () => {
-    return {
-      drag: false,
-    };
-  },
   computed: {
     groupId() {
       return this.groupNumber - 1;
@@ -58,10 +53,11 @@ export default {
   },
   methods: {
     onDragStart() {
-      this.drag = true;
+      this.$store.commit("setDrag", true);
     },
+    // this.$store.state.global.drag
     onDragEnd() {
-      this.drag = false;
+      this.$store.commit("setDrag", false);
     },
   },
 };

@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     triggerScan(roster) {
-      console.log('scan');
+      console.log("scan");
       this.warnings.splice(0, this.warnings.length);
 
       if (roster.length < this.$store.state.raid.playerCount) {
@@ -47,7 +47,7 @@ export default {
         }
       }
 
-      console.log('scan done');
+      console.log("scan done");
     },
     classCount(roster) {
       const classesCount = classes
@@ -76,6 +76,6 @@ export default {
       },
       deep: true,
     },
-  }
+  },
 };
 </script>
