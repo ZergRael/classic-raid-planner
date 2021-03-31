@@ -1,19 +1,33 @@
 <template>
   <div class="m-1 border rounded">
-    <div class="p-1" v-if="!p.empty" :class="bgClass">
+    <div class="" v-if="editMode">
+      <input
+        type="text"
+        v-model="newName"
+        @keyup.enter="saveNameChange"
+        @keyup.esc="editMode = false"
+      />
+    </div>
+    <div
+      class="p-1"
+      v-else-if="player"
+      :class="bgClass"
+      @dblclick="onDoubleClick"
+    >
       <ClassSelect
         class="p-0.5"
-        :p-class="p.pClass"
+        :p-class="player.pClass"
         @pclass-select="onPClassSelect"
       />
       <SpecSelect
         class="p-0.5"
-        :p-class="p.pClass"
-        :spec="p.spec"
+        :p-class="player.pClass"
+        :spec="player.spec"
         @spec-select="onSpecSelect"
       />
-      {{ name }}
+      <span class="player-name">{{ name }}</span>
     </div>
+    <div class="p-1" v-else-if="name">__{{ name }}</div>
     <div class="p-1" v-else>_</div>
   </div>
 </template>
@@ -24,41 +38,56 @@ import SpecSelect from "@/components/SpecSelect.vue";
 
 export default {
   name: "Player",
-  props: ["p"],
+  props: {
+    name: String,
+  },
+  data() {
+    return {
+      editMode: false,
+      newName: this.name,
+    };
+  },
   components: {
     ClassSelect,
     SpecSelect,
   },
   computed: {
     bgClass() {
-      return this.p.pClass ? "bg-" + this.p.pClass : "bg-gray-200";
+      return this.player.pClass ? "bg-" + this.player.pClass : "bg-gray-200";
     },
-    name() {
-      return this.p.name;
-    },
-    canSpec() {
-      return this.p.pClass;
+    player() {
+      return this.$store.getters.playerByName(this.name);
     },
   },
   methods: {
     onClick() {},
+    onDoubleClick() {
+      this.editMode = true;
+    },
+    saveNameChange() {
+      this.$store.commit("updateRosterPlayerName", {
+        from: this.name,
+        to: this.newName,
+      });
+      this.editMode = false;
+    },
     onPClassSelect(pClass) {
-      if (this.p.empty) {
+      if (!this.player) {
         return;
       }
 
       this.$store.commit("setPlayerPClass", {
-        name: this.p.name,
+        name: this.name,
         pClass,
       });
     },
     onSpecSelect(spec) {
-      if (this.p.empty) {
+      if (!this.player) {
         return;
       }
 
       this.$store.commit("setPlayerSpec", {
-        name: this.p.name,
+        name: this.name,
         spec,
       });
     },

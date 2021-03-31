@@ -29,15 +29,16 @@ export default {
       console.log("scan");
       this.warnings.splice(0, this.warnings.length);
 
-      if (roster.length < this.$store.state.raid.playerCount) {
+      const realRosterCount = roster.filter((e) => e).length;
+      if (realRosterCount < this.$store.state.raid.playerCount) {
         this.w(
-          `Roster is missing members (${roster.length}/${this.$store.state.raid.playerCount})`
+          `Roster is missing members (${realRosterCount}/${this.$store.state.raid.playerCount})`
         );
         return;
       }
 
       this.w(
-        `Nice, full raid (${roster.length}/${this.$store.state.raid.playerCount})`
+        `Nice, full raid (${realRosterCount}/${this.$store.state.raid.playerCount})`
       );
 
       const classesCount = this.classCount(roster);
@@ -59,8 +60,9 @@ export default {
           return map;
         }, {});
 
-      for (let p of roster) {
-        ++classesCount[p.pClass];
+      for (let name of roster) {
+        const player = this.$store.getters.playerByName(name);
+        ++classesCount[player.pClass];
       }
 
       return classesCount;

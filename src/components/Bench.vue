@@ -12,7 +12,7 @@
       item-key="id"
     >
       <template #item="{ element }">
-        <Player :p="element" />
+        <Player :name="element" />
       </template>
     </draggable>
   </div>
