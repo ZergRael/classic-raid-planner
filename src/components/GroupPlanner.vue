@@ -6,9 +6,10 @@
       v-model="players"
       :group="{
         name: 'raid-members',
-        put: (to, from) => to.el.children.length < 5,
+        //put: (to, from) => to.el.children.length < 5,
       }"
       @start="onDragStart"
+      :move="onMove"
       @end="onDragEnd"
       item-key="id"
     >
@@ -52,12 +53,18 @@ export default {
     },
   },
   methods: {
+    // this.$store.state.global.drag
     onDragStart() {
       this.$store.commit("setDrag", true);
     },
-    // this.$store.state.global.drag
+    onMove(e) {
+      const { index, futureIndex } = e.draggedContext;
+      this.$store.commit("setMove", { index, futureIndex });
+      return false;
+    },
     onDragEnd() {
       this.$store.commit("setDrag", false);
+      this.$store.dispatch("swap");
     },
   },
 };

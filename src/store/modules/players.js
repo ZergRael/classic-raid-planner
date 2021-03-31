@@ -25,7 +25,15 @@ const getters = {
   },
 };
 
-const actions = {};
+const actions = {
+  swap({ commit, rootState }) {
+    const index = rootState.global.index;
+    const futureIndex = rootState.global.futureIndex;
+
+    commit("swap", { from: index, to: futureIndex });
+    commit("unsetMove");
+  },
+};
 
 function initPlayer(state, name) {
   if (!state.players[name]) {
@@ -82,6 +90,11 @@ const mutations = {
     const lname = name.toLowerCase();
     initPlayer(state, lname);
     state.players[lname] = misc;
+  },
+  swap(state, { from, to }) {
+    const name = state.roster[from];
+    state.roster[from] = state.roster[to];
+    state.roster[to] = name;
   },
 };
 
