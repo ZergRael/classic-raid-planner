@@ -6,9 +6,9 @@
         class="border"
         type="text"
         v-model="saveName"
-        @keyup.enter="save"
+        @keyup.enter="save()"
       />
-      <button class="ring-1" @click="save">Save</button>
+      <button class="ring-1" @click="save()">Save</button>
       <div class="quick-load" v-for="s in saves" :key="s.name">
         {{ s.name }}
         <i
@@ -16,11 +16,11 @@
           @click="load(s.name)"
           title="load"
         />
-        <i
+        <!-- <i
           class="gg-software-upload inline-block mx-1 cursor-pointer"
           @click="save(s.name)"
           title="save"
-        />
+        /> -->
         <i
           class="gg-trash inline-block mx-1 cursor-pointer"
           @dblclick="del(s.name)"
@@ -58,6 +58,8 @@ export default {
         return;
       }
 
+      this.saveName = name;
+      this.$store.commit("setTitle", name);
       this.$store.commit("import", { rawPlayers: save.roster });
     },
     del(name) {
