@@ -13,7 +13,6 @@
     "postcss": "^7.0.35",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.4",
     "vue": "^3.0.10",
-    "vuedraggable": "^4.0.1",
     "vuex": "^4.0.0",
     "vuex-persist": "^3.1.3"
   },

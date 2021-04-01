@@ -83,6 +83,12 @@ const mutations = {
     initPlayer(state, lname);
     state.players[lname] = misc;
   },
+  swap(state, { from, to }) {
+    const fromPos = state.roster.indexOf(from);
+    const toPos = state.roster.indexOf(to);
+    state.roster[fromPos] = to;
+    state.roster[toPos] = from;
+  },
 };
 
 export default {

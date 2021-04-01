@@ -1,26 +1,23 @@
 <template>
   <div class="border rounded p-1 m-0.5">
     <h3>G{{ groupNumber }}</h3>
-    <draggable
-      class="bg-gray-100 justify-items-auto"
-      v-model="players"
-      :group="{
-        name: 'raid-members',
-        put: (to, from) => to.el.children.length < 5,
-      }"
-      @start="onDragStart"
-      @end="onDragEnd"
-      item-key="id"
-    >
-      <template #item="{ element }">
-        <Player :name="element" />
-      </template>
-    </draggable>
+    <div class="bg-gray-100 justify-items-auto">
+      <Player
+        draggable="true"
+        v-for="name in players"
+        :key="name"
+        :name="name"
+        @dragstart="onDragStart($event, name)"
+        @dragend="onDragEnd"
+        @drop="onDrop($event, name)"
+        @dragover.prevent
+        @dragenter.prevent
+      />
+    </div>
   </div>
 </template>
 
 <script>
-import draggable from "vuedraggable";
 import Player from "@/components/Player.vue";
 
 export default {
@@ -32,7 +29,6 @@ export default {
     },
   },
   components: {
-    draggable,
     Player,
   },
   computed: {
@@ -52,12 +48,19 @@ export default {
     },
   },
   methods: {
-    onDragStart() {
+    onDragStart(e, item) {
+      e.dataTransfer.dropEffect = "move";
+      e.dataTransfer.effectAllowed = "move";
+      e.dataTransfer.setData("item", item);
       this.$store.commit("setDrag", true);
     },
     // this.$store.state.global.drag
     onDragEnd() {
       this.$store.commit("setDrag", false);
+    },
+    onDrop(e, to) {
+      const item = e.dataTransfer.getData("item");
+      this.$store.commit("swap", { from: item, to });
     },
   },
 };
