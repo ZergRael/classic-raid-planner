@@ -1,8 +1,10 @@
 <template>
-  <div class="m-1 border rounded">
-    <div class="" v-if="editMode">
+  <div class="m-1 border rounded bg-red-400">
+    <div class="p-1" v-if="editMode">
       <input
         type="text"
+        class="w-full"
+        ref="playerNameInput"
         v-model="newName"
         @keyup.enter="saveNameChange"
         @keyup.esc="editMode = false"
@@ -15,12 +17,12 @@
       @dblclick="onDoubleClick"
     >
       <ClassSelect
-        class="p-0.5"
+        class="px-0.5"
         :p-class="player.pClass"
         @pclass-select="onPClassSelect"
       />
       <SpecSelect
-        class="p-0.5"
+        class="px-0.5"
         :p-class="player.pClass"
         :spec="player.spec"
         @spec-select="onSpecSelect"
@@ -29,10 +31,7 @@
     </div>
     <div class="p-1" v-else-if="name">__{{ name }}</div>
     <div class="p-1" v-else @dblclick="onDoubleClick">
-      <img
-        src="@/assets/icons/INV_Misc_QuestionMark.png"
-        class="w-5 inline-block"
-      />
+      <i class="inline-block" />
     </div>
   </div>
 </template>
@@ -68,6 +67,9 @@ export default {
     onClick() {},
     onDoubleClick() {
       this.editMode = true;
+      this.$nextTick(() => {
+        this.$refs.playerNameInput.focus();
+      });
     },
     saveNameChange() {
       this.$store.commit("updateRosterPlayerName", {

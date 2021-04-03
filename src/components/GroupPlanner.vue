@@ -1,7 +1,7 @@
 <template>
   <div class="border rounded p-1 m-0.5">
     <h3>G{{ groupNumber }}</h3>
-    <div class="bg-gray-100 justify-items-auto">
+    <div class="">
       <Player
         draggable="true"
         v-for="name in players"
