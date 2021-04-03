@@ -39,12 +39,6 @@ export default {
       get() {
         return this.$store.getters.playersByGroup(this.groupId);
       },
-      set(value) {
-        this.$store.commit("setPlayersByGroup", {
-          groupId: this.groupId,
-          value,
-        });
-      },
     },
   },
   methods: {
@@ -54,7 +48,6 @@ export default {
       e.dataTransfer.setData("item", item);
       this.$store.commit("setDrag", true);
     },
-    // this.$store.state.global.drag
     onDragEnd() {
       this.$store.commit("setDrag", false);
     },

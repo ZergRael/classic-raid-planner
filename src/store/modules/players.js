@@ -3,6 +3,7 @@ import { isPlayerNameValid } from "@/utils/utils";
 
 const state = () => ({
   roster: Array(MAX_PLAYERS).fill(null),
+  bench: [],
   players: {},
 });
 
