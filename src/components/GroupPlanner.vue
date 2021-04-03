@@ -3,7 +3,7 @@
     <h3>G{{ groupNumber }}</h3>
     <div class="">
       <Player
-        draggable="true"
+        :draggable="!!name"
         v-for="name in players"
         :key="name"
         :name="name"

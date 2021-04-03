@@ -2,7 +2,7 @@ import { PLAYERS_BY_GROUP, MAX_PLAYERS } from "@/constants/global";
 import { isPlayerNameValid } from "@/utils/utils";
 
 const state = () => ({
-  roster: Array(MAX_PLAYERS).fill(""),
+  roster: Array(MAX_PLAYERS).fill(null),
   players: {},
 });
 
@@ -39,7 +39,7 @@ const mutations = {
       PLAYERS_BY_GROUP * groupId,
       PLAYERS_BY_GROUP,
       ...value.concat(
-        Array(PLAYERS_BY_GROUP - value.slice(0, MAX_PLAYERS).length).fill("")
+        Array(PLAYERS_BY_GROUP - value.slice(0, MAX_PLAYERS).length).fill(null)
       )
     );
   },
@@ -54,10 +54,14 @@ const mutations = {
         return name;
       })
       .concat(
-        Array(MAX_PLAYERS - rawPlayers.slice(0, MAX_PLAYERS).length).fill("")
+        Array(MAX_PLAYERS - rawPlayers.slice(0, MAX_PLAYERS).length).fill(null)
       );
 
     for (let name of state.roster) {
+      if (!name) {
+        continue;
+      }
+
       initPlayer(state, name.toLowerCase());
     }
   },
