@@ -28,7 +28,12 @@
       <span class="player-name">{{ name }}</span>
     </div>
     <div class="p-1" v-else-if="name">__{{ name }}</div>
-    <div class="p-1" v-else>_</div>
+    <div class="p-1" v-else @dblclick="onDoubleClick">
+      <img
+        src="@/assets/icons/INV_Misc_QuestionMark.png"
+        class="w-5 inline-block"
+      />
+    </div>
   </div>
 </template>
 
