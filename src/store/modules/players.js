@@ -7,6 +7,8 @@ const state = () => ({
   players: {},
 });
 
+const emptyPlayer = {};
+
 const getters = {
   playersByGroup: (state) => (groupId) => {
     return state.roster.slice(
@@ -19,7 +21,7 @@ const getters = {
       return null;
     }
 
-    return state.players[name.toLowerCase()];
+    return state.players[name.toLowerCase()] || emptyPlayer;
   },
   rawPlayers: (state) => {
     return state.roster.slice(0, MAX_PLAYERS);
@@ -57,20 +59,16 @@ const mutations = {
       .concat(
         Array(MAX_PLAYERS - rawPlayers.slice(0, MAX_PLAYERS).length).fill(null)
       );
-
-    for (let name of state.roster) {
-      if (!name) {
-        continue;
-      }
-
-      initPlayer(state, name.toLowerCase());
-    }
   },
-  updateRosterPlayerName(state, { from, to }) {
-    const playerPosition = state.roster.indexOf(from);
-    if (playerPosition > -1) {
-      state.roster[playerPosition] = to;
-      initPlayer(state, to.toLowerCase());
+  updatePlayerName(state, { from, to }) {
+    const rosterPlayerPos = state.roster.indexOf(from);
+    if (rosterPlayerPos > -1) {
+      state.roster[rosterPlayerPos] = to;
+    } else {
+      const benchPlayerPos = state.bench.indexOf(from);
+      if (benchPlayerPos > -1) {
+        state.bench[benchPlayerPos] = to;
+      }
     }
   },
   setPlayerPClass(state, { name, pClass }) {

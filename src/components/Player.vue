@@ -72,7 +72,7 @@ export default {
       });
     },
     saveNameChange() {
-      this.$store.commit("updateRosterPlayerName", {
+      this.$store.commit("updatePlayerName", {
         from: this.name,
         to: this.newName,
       });
