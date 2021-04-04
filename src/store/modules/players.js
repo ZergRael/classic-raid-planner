@@ -46,7 +46,7 @@ const mutations = {
       )
     );
   },
-  import(state, { rawPlayers }) {
+  import(state, { rawPlayers, bench }) {
     state.roster = rawPlayers
       .slice(0, MAX_PLAYERS)
       .map((name) => {
@@ -59,6 +59,8 @@ const mutations = {
       .concat(
         Array(MAX_PLAYERS - rawPlayers.slice(0, MAX_PLAYERS).length).fill(null)
       );
+
+    state.bench = bench || [];
   },
   updatePlayerName(state, { from, to }) {
     const rosterPlayerPos = state.roster.indexOf(from);

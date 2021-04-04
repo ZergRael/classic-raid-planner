@@ -48,6 +48,7 @@ export default {
     save(name) {
       this.$store.commit("save", {
         roster: this.$store.getters.rawPlayers,
+        bench: this.$store.state.players.bench,
         name: name || this.saveName,
       });
       this.saveName = "";
@@ -60,7 +61,10 @@ export default {
 
       this.saveName = name;
       this.$store.commit("setTitle", name);
-      this.$store.commit("import", { rawPlayers: save.roster });
+      this.$store.commit("import", {
+        rawPlayers: save.roster,
+        bench: save.bench,
+      });
     },
     del(name) {
       this.$store.commit("delete", { name });

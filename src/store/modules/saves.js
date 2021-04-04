@@ -14,9 +14,10 @@ const getters = {
 const actions = {};
 
 const mutations = {
-  save(state, { name, roster }) {
+  save(state, { name, roster, bench }) {
     const save = {
       roster,
+      bench,
       name,
       date: new Date(),
     };
