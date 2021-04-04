@@ -11,12 +11,12 @@
       />
       <Player
         draggable="true"
-        v-for="name in players"
+        v-for="(name, idx) in players"
         :key="name"
         :name="name"
-        @dragstart="onDragStart($event, name)"
+        @dragstart="onDragStart($event, idx)"
         @dragend="onDragEnd"
-        @drop="onDrop($event, name)"
+        @drop="onDrop($event, idx)"
         @dragover.prevent
         @dragenter.prevent
       />
@@ -26,6 +26,7 @@
 
 <script>
 import Player from "@/components/Player.vue";
+import { intOrNull } from "@/utils/utils";
 
 export default {
   name: "Bench",
@@ -40,22 +41,30 @@ export default {
     },
   },
   methods: {
-    onDragStart(e, item) {
-      console.log("dragStart-bench", item);
+    onDragStart(e, position) {
       e.dataTransfer.effectAllowed = "move";
-      e.dataTransfer.setData("item", item);
-      this.$store.commit("setDrag", true);
+      e.dataTransfer.setData("groupId", null);
+      e.dataTransfer.setData("position", position);
+      // this.$store.commit("setDrag", true);
     },
     onDragEnd() {
-      this.$store.commit("setDrag", false);
-    },
-    onBenchDrop(e) {
-      const item = e.dataTransfer.getData("item");
-      console.log(item);
+      // this.$store.commit("setDrag", false);
     },
     onDrop(e, to) {
-      const item = e.dataTransfer.getData("item");
-      this.$store.commit("swap", { from: item, to });
+      const fromGroupId = intOrNull(e.dataTransfer.getData("groupId"));
+      const fromPosition = intOrNull(e.dataTransfer.getData("position"));
+      this.$store.commit("swap", {
+        from: { groupId: fromGroupId, position: fromPosition },
+        to: { groupId: null, position: to },
+      });
+    },
+    onBenchDrop(e) {
+      const groupId = intOrNull(e.dataTransfer.getData("groupId"));
+      const position = intOrNull(e.dataTransfer.getData("position"));
+      this.$store.commit("bench", {
+        groupId,
+        position,
+      });
     },
   },
 };

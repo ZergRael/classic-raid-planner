@@ -4,12 +4,12 @@
     <div class="">
       <Player
         :draggable="!!name"
-        v-for="name in players"
+        v-for="(name, idx) in players"
         :key="name"
         :name="name"
-        @dragstart="onDragStart($event, name)"
+        @dragstart="onDragStart($event, idx)"
         @dragend="onDragEnd"
-        @drop="onDrop($event, name)"
+        @drop="onDrop($event, idx)"
         @dragover.prevent
         @dragenter.prevent
       />
@@ -19,6 +19,7 @@
 
 <script>
 import Player from "@/components/Player.vue";
+import { intOrNull } from "@/utils/utils";
 
 export default {
   name: "GroupPlanner",
@@ -42,18 +43,23 @@ export default {
     },
   },
   methods: {
-    onDragStart(e, item) {
+    onDragStart(e, position) {
       e.dataTransfer.dropEffect = "move";
       e.dataTransfer.effectAllowed = "move";
-      e.dataTransfer.setData("item", item);
+      e.dataTransfer.setData("groupId", this.groupId);
+      e.dataTransfer.setData("position", position);
       this.$store.commit("setDrag", true);
     },
     onDragEnd() {
       this.$store.commit("setDrag", false);
     },
     onDrop(e, to) {
-      const item = e.dataTransfer.getData("item");
-      this.$store.commit("swap", { from: item, to });
+      const fromGroupId = intOrNull(e.dataTransfer.getData("groupId"));
+      const fromPosition = intOrNull(e.dataTransfer.getData("position"));
+      this.$store.commit("swap", {
+        from: { groupId: fromGroupId, position: fromPosition },
+        to: { groupId: this.groupId, position: to },
+      });
     },
   },
 };

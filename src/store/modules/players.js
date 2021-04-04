@@ -89,10 +89,57 @@ const mutations = {
     state.players[lname] = misc;
   },
   swap(state, { from, to }) {
-    const fromPos = state.roster.indexOf(from);
-    const toPos = state.roster.indexOf(to);
-    state.roster[fromPos] = to;
-    state.roster[toPos] = from;
+    console.log(from);
+    console.log(to);
+
+    if (from.groupId == null) {
+      // From BENCH
+      const fromPos = from.position;
+      if (to.groupId == null) {
+        // To BENCH
+        const toPos = to.position;
+        const fromItem = state.bench[fromPos];
+        state.bench[fromPos] = state.bench[toPos];
+        state.bench[toPos] = fromItem;
+      } else {
+        // To ROSTER
+        const toPos = PLAYERS_BY_GROUP * to.groupId + to.position;
+        const toItem = state.roster[toPos];
+        if (toItem) {
+          const item = state.bench[fromPos];
+          state.bench[fromPos] = state.roster[toPos];
+          state.roster[toPos] = item;
+        } else {
+          state.roster[toPos] = state.bench.splice(fromPos, 1)[0];
+        }
+      }
+    } else {
+      // From ROSTER
+      const fromPos = PLAYERS_BY_GROUP * from.groupId + from.position;
+      if (to.groupId == null) {
+        // To BENCH
+        const toPos = to.position;
+        const fromItem = state.roster[fromPos];
+        state.roster[fromPos] = state.bench[toPos];
+        state.bench[toPos] = fromItem;
+      } else {
+        // To ROSTER
+        const toPos = PLAYERS_BY_GROUP * to.groupId + to.position;
+        const fromItem = state.roster[fromPos];
+        state.roster[fromPos] = state.roster[toPos];
+        state.roster[toPos] = fromItem;
+      }
+    }
+  },
+  bench(state, { groupId, position }) {
+    if (groupId == null) {
+      // Cannot bench already benched player
+      return;
+    }
+
+    const pos = PLAYERS_BY_GROUP * groupId + position;
+    const name = state.roster.splice(pos, 1, null)[0];
+    state.bench.push(name);
   },
 };
 
