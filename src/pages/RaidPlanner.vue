@@ -3,7 +3,7 @@
   <h2 class="text-center">{{ $store.state.global.title }}</h2>
   <div class="home-page">
     <div class="flex">
-      <RaidPlanner class="w-3/4" :group-count="8" />
+      <Roster class="w-3/4" :group-count="8" />
       <div class="w-1/4">
         <Importer />
         <Exporter />
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import RaidPlanner from "@/components/RaidPlanner.vue";
+import Roster from "@/components/Roster.vue";
 import Bench from "@/components/Bench.vue";
 import SaveLoad from "@/components/SaveLoad.vue";
 import Importer from "@/components/Importer.vue";
@@ -26,7 +26,7 @@ import Analyzer from "@/components/Analyzer.vue";
 export default {
   name: "HomePage",
   components: {
-    RaidPlanner,
+    Roster,
     SaveLoad,
     Bench,
     Importer,

@@ -22,7 +22,7 @@ import Player from "@/components/Player.vue";
 import { intOrNull } from "@/utils/utils";
 
 export default {
-  name: "GroupPlanner",
+  name: "GroupView",
   props: {
     groupNumber: {
       type: Number,

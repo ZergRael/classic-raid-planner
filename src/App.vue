@@ -1,14 +1,14 @@
 <template>
-  <HomePage />
+  <RaidPlanner />
 </template>
 
 <script>
-import HomePage from "@/components/HomePage.vue";
+import RaidPlanner from "@/pages/RaidPlanner.vue";
 
 export default {
   name: "App",
   components: {
-    HomePage,
+    RaidPlanner,
   },
 };
 </script>

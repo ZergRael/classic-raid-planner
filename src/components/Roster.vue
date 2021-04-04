@@ -1,16 +1,16 @@
 <template>
   <div class="grid grid-cols-2 lg:grid-cols-4">
-    <GroupPlanner v-for="i in groupCount" :key="i" :group-number="i" />
+    <GroupView v-for="i in groupCount" :key="i" :group-number="i" />
   </div>
 </template>
 
 <script>
-import GroupPlanner from "@/components/GroupPlanner.vue";
+import GroupView from "@/components/GroupView.vue";
 
 export default {
-  name: "RaidPlanner",
+  name: "RaidView",
   components: {
-    GroupPlanner,
+    GroupView,
   },
   props: {
     groupCount: {
