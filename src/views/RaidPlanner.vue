@@ -1,6 +1,6 @@
 <template>
   <h2 class="text-center">{{ $store.state.global.title }}</h2>
-  <div class="home-page">
+  <div class="raid-planner">
     <div class="flex">
       <Roster class="w-3/4" :group-count="8" />
       <div class="w-1/4">
