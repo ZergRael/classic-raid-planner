@@ -1,5 +1,4 @@
 <template>
-  <h1 class="text-xl block text-center">Classic Raid Planner</h1>
   <h2 class="text-center">{{ $store.state.global.title }}</h2>
   <div class="home-page">
     <div class="flex">
