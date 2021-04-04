@@ -89,9 +89,6 @@ const mutations = {
     state.players[lname] = misc;
   },
   swap(state, { from, to }) {
-    console.log(from);
-    console.log(to);
-
     if (from.groupId == null) {
       // From BENCH
       const fromPos = from.position;

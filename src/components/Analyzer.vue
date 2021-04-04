@@ -47,7 +47,6 @@ export default {
     },
     triggerScan(roster) {
       this.cleanupMessages();
-      console.log("scan");
       const start = performance.now();
 
       const realRosterCount = roster.filter((e) => e).length;
@@ -110,7 +109,6 @@ export default {
       }
 
       this.d(`Took ${round(performance.now() - start, 3)}ms`);
-      console.log("scan done");
     },
     classCount(roster) {
       const classesCount = classes.reduce(function (map, e) {
