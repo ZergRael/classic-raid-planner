@@ -9,6 +9,15 @@ import global from "./modules/global";
 const debug = process.env.NODE_ENV !== "production";
 const vuexLocal = new VuexPersistence({
   storage: window.localStorage,
+  filter: (mutation) => {
+    switch (mutation.type) {
+      case "toast":
+      case "removeToast":
+        return false;
+      default:
+        return true;
+    }
+  },
 });
 
 export default createStore({

@@ -57,6 +57,7 @@ export default {
         bench: this.$store.state.players.bench,
         name: name || this.saveName,
       });
+      this.$store.dispatch("success", "Saved");
       this.saveName = "";
     },
     load(name) {
@@ -74,6 +75,7 @@ export default {
     },
     del(name) {
       this.$store.commit("delete", { name });
+      this.$store.dispatch("success", "Deleted");
     },
   },
 };

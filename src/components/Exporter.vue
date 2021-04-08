@@ -32,7 +32,13 @@ export default {
   },
   methods: {
     exportToClipboard() {
-      navigator.clipboard.writeText(this.output);
+      try {
+        navigator.clipboard.writeText(this.output);
+        this.$store.dispatch("success", "Copied to clipboard");
+      } catch (err) {
+        console.error(err);
+        this.$store.dispatch("error", "Cannot copy to clipboard");
+      }
     },
     sheetToClipboard() {
       const players = this.$store.getters.rawPlayers;
@@ -65,12 +71,17 @@ export default {
         content.push(`<tr>${l.join("")}</tr>`);
       }
       content.push("</table>");
-
-      // eslint-disable-next-line no-undef
-      let data = new ClipboardItem({
-        "text/html": new Blob([content.join("")], { type: "text/html" }),
-      });
-      navigator.clipboard.write([data]);
+      try {
+        // eslint-disable-next-line no-undef
+        let data = new ClipboardItem({
+          "text/html": new Blob([content.join("")], { type: "text/html" }),
+        });
+        navigator.clipboard.write([data]);
+        this.$store.dispatch("success", "Copied to clipboard");
+      } catch (err) {
+        console.error(err);
+        this.$store.dispatch("error", "Cannot copy to clipboard");
+      }
     },
   },
 };
