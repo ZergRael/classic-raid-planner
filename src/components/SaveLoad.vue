@@ -9,23 +9,29 @@
         @keyup.enter="save()"
       />
       <button class="ring-1" @click="save()">Save</button>
-      <div class="quick-load" v-for="s in saves" :key="s.name">
-        {{ s.name }}
-        <i
-          class="gg-software-download inline-block mx-1 cursor-pointer"
-          @click="load(s.name)"
-          title="load"
-        />
-        <!-- <i
+      <div class="quick-load divide-y">
+        <div class="flex max-w-xs" v-for="s in saves" :key="s.name">
+          <div class="inline-block flex-grow">{{ s.name }}</div>
+          <div>
+            <i
+              class="gg-software-download inline-block mx-1 cursor-pointer"
+              @click="load(s.name)"
+              title="load"
+            />
+          </div>
+          <!-- <i
           class="gg-software-upload inline-block mx-1 cursor-pointer"
           @click="save(s.name)"
           title="save"
         /> -->
-        <i
-          class="gg-trash inline-block mx-1 cursor-pointer"
-          @dblclick="del(s.name)"
-          title="del"
-        />
+          <div>
+            <i
+              class="gg-trash inline-block mx-1 cursor-pointer"
+              @dblclick="del(s.name)"
+              title="del"
+            />
+          </div>
+        </div>
       </div>
     </div>
   </div>
