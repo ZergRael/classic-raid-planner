@@ -11,7 +11,7 @@
       />
     </div>
     <div
-      class="p-1"
+      class="p-1 flex"
       v-else-if="player"
       :class="bgClass"
       @dblclick="onDoubleClick"
@@ -27,7 +27,19 @@
         :spec="player.spec"
         @spec-select="onSpecSelect"
       />
-      <span class="player-name">{{ name }}</span>
+      <div class="player-name inline-block flex-grow">{{ name }}</div>
+      <div>
+        <a
+          :href="`https://classic.warcraftlogs.com/character/eu/sulfuron/${name}`"
+          title="WCLogs profile"
+        >
+          <img
+            src="@/assets/icons/wclogs.png"
+            class="w-5 inline-block"
+            alt="WCLogs"
+          />
+        </a>
+      </div>
     </div>
     <div class="p-1" v-else-if="name">__{{ name }}</div>
     <div class="p-1" v-else @dblclick="onDoubleClick">
