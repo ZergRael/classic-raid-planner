@@ -48,6 +48,7 @@ export default {
       e.dataTransfer.effectAllowed = "move";
       e.dataTransfer.setData("groupId", this.groupId);
       e.dataTransfer.setData("position", position);
+      console.log(this.groupId, position);
       this.$store.commit("setDrag", true);
     },
     onDragEnd() {

@@ -2,7 +2,10 @@
   <h2 class="text-center">{{ $store.state.global.title }}</h2>
   <div class="raid-planner">
     <div class="flex">
-      <Roster class="w-3/4" :group-count="8" />
+      <div class="w-3/4">
+        <Roster :group-count="8" />
+        <Analyzer class="w-full" />
+      </div>
       <div class="w-1/4">
         <Importer />
         <Exporter />
@@ -10,7 +13,6 @@
         <Bench />
       </div>
     </div>
-    <Analyzer class="w-full" />
   </div>
 </template>
 
