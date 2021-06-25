@@ -52,12 +52,14 @@ export default {
   },
   methods: {
     save(name) {
+      const saveName = name || this.saveName;
       this.$store.commit("save", {
         roster: this.$store.getters.rawPlayers,
         bench: this.$store.state.players.bench,
-        name: name || this.saveName,
+        name: saveName,
       });
       this.$store.dispatch("success", "Saved");
+      this.$store.commit("setTitle", saveName);
       this.saveName = "";
     },
     load(name) {
@@ -72,6 +74,7 @@ export default {
         rawPlayers: save.roster,
         bench: save.bench,
       });
+      this.$store.dispatch("success", "Loaded");
     },
     del(name) {
       this.$store.commit("delete", { name });
